@@ -1,0 +1,33 @@
+
+@import './styles/themes.css';
+@import './styles/animations.css';
+@import './styles/global.css';
+@import './styles/components.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --z-boot: 9999;
+  --z-modal: 1000;
+  --z-overlay: 800;
+  --z-notification: 600;
+  --z-toast: 500;
+  --z-stray: 100;
+}
+
+@layer utilities {
+  .animate-in {
+    animation: none !important;
+  }
+  .fade-in {
+    animation-name: fadeIn;
+  }
+  .zoom-in-95 {
+    animation-name: zoomIn95;
+  }
+  .zoom-in-\[0\.98\] {
+    animation-name: zoomIn98;
+  }
+}

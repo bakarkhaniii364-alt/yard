@@ -1,0 +1,52 @@
+#!/bin/bash
+# Pre-commit security hook
+# Prevents committing secrets (API keys, tokens, etc.)
+# 
+# Installation:
+# 1. Save this as .githooks/pre-commit
+# 2. Run: chmod +x .githooks/pre-commit
+# 3. Configure Git: git config core.hooksPath .githooks
+
+set -e
+
+echo "🔐 Running security checks..."
+
+# Patterns for ACTUAL secrets (values, not documentation)
+# More specific: look for actual key=value patterns, not just mentions
+SECRETS_REGEX="(SUPABASE_KEY|SUPABASE_URL|API_KEY|SECRET|TOKEN|PASSWORD|PRIVATE_KEY|aws_secret|credentials)\s*[=:]\s*['\"]?[a-zA-Z0-9\-_.+/]{20,}"
+
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM)
+
+FOUND_SECRETS=0
+
+for file in $STAGED_FILES; do
+  # Skip certain file types and documentation
+  if [[ $file == *.png ]] || [[ $file == *.jpg ]] || [[ $file == *.woff* ]] || [[ $file == *.md ]] || [[ $file == *.sql ]]; then
+    continue
+  fi
+
+  # Skip files that are meant to contain examples (documentation, config templates)
+  if [[ $file == *"SECURITY"* ]] || [[ $file == *"example"* ]] || [[ $file == *".template"* ]]; then
+    continue
+  fi
+
+  if git diff --cached "$file" | grep -P "$SECRETS_REGEX" > /dev/null 2>&1; then
+    echo "❌ Potential secret found in: $file"
+    echo "   Run: git diff --cached $file"
+    FOUND_SECRETS=1
+  fi
+done
+
+if [ $FOUND_SECRETS -eq 1 ]; then
+  echo ""
+  echo "⚠️  COMMIT BLOCKED: Potential secrets detected"
+  echo ""
+  echo "If this is a false positive:"
+  echo "  1. Check the flagged file for actual exposed keys"
+  echo "  2. If safe, add file to .githooks/.gitleaksignore or commit anyway:"
+  echo "     git commit --no-verify"
+  exit 1
+fi
+
+echo "✅ Security checks passed!"
+exit 0

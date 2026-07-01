@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Allow: /signup
+Allow: /signin
+Allow: /legal
+
+Disallow: /dashboard
+Disallow: /chat
+Disallow: /handshake
+Disallow: /settings
+Disallow: /arcade
+Disallow: /doodle
+Disallow: /scrapbook
+Disallow: /notes
+Disallow: 
+
+Sitemap: https://attic-5gp.pages.dev/sitemap.xml

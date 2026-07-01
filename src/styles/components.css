@@ -1,0 +1,229 @@
+.retro-border { border: 1px solid var(--border); }
+.retro-border-thick { border: 2px solid var(--border); }
+.retro-shadow-dark { box-shadow: 1.5px 1.5px 0px 0px var(--border); }
+.retro-shadow-primary { box-shadow: 2px 2px 0px 0px var(--primary); }
+
+.retro-bg-window { background-color: var(--bg-window); }
+.retro-bg-primary { background-color: var(--primary); color: var(--text-on-primary); border: 2px solid var(--primary); }
+.retro-bg-secondary { background-color: var(--secondary); color: var(--text-on-secondary); border: 2px solid var(--secondary); }
+.retro-bg-accent { background-color: var(--accent); color: var(--text-on-accent); border: 2px solid var(--accent); }
+
+.retro-window {
+  background-color: var(--bg-window);
+  border: 2px solid var(--border);
+  box-shadow: 4px 4px 0px 0px var(--border);
+}
+
+.retro-button {
+  border: 2px solid var(--border);
+  box-shadow: 2px 2px 0px 0px var(--border);
+  transition: all 0.1s;
+}
+
+.retro-button:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px 0px var(--border);
+}
+
+.retro-outset {
+  border: 2px solid var(--border);
+  background-color: var(--bg-window);
+}
+
+.retro-inset {
+  border: 2px solid var(--border);
+  background-color: var(--bg-window);
+}
+
+/* Chat Wallpapers */
+
+/* Weather Layers */
+.weather-layer { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.rain-drop {
+  position: absolute; background: var(--secondary);
+  width: 2px; height: 40px; top: -100px;
+  animation: fall linear infinite; opacity: 0.7;
+}
+.storm-drop {
+  position: absolute; background: var(--border);
+  width: 3px; height: 60px; top: -100px;
+  animation: storm-fall linear infinite; opacity: 0.9;
+}
+.snow-flake {
+  position: absolute; background: var(--border);
+  border-radius: 50%; top: -10px;
+  animation: snow-fall linear infinite; opacity: 0.8;
+}
+.cloud-vessel {
+  position: absolute; background: var(--bg-window);
+  border: 2px solid var(--border); opacity: 0.4;
+  animation: float-clouds linear infinite;
+}
+.star-particle {
+  position: absolute; background: var(--primary);
+  border-radius: 50%; animation: twinkle ease-in-out infinite;
+}
+.svg-lightning {
+  position: absolute; top: 0; stroke: var(--text-main); fill: none; stroke-width: 4; opacity: 0;
+  filter: drop-shadow(0 0 10px var(--text-main));
+  animation: lightning-strike infinite;
+}
+
+/* Chunky volume slider (LofiPlayer) */
+.chunky-slider {
+  -webkit-appearance: none;
+  background: rgba(0,0,0,0.1);
+  border-radius: 2px;
+}
+.chunky-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 12px;
+  width: 8px;
+  background: var(--primary);
+  border: 1px solid white;
+  border-radius: 1px;
+  box-shadow: 1px 1px 0px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+.chunky-slider::-moz-range-thumb {
+  height: 12px;
+  width: 8px;
+  background: var(--primary);
+  border: 1px solid white;
+  border-radius: 1px;
+  box-shadow: 1px 1px 0px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+/* Ruled notepad (SharedNotes) */
+.ruled-notepad {
+  background-color: #fff9e6;
+  background-image:
+    linear-gradient(to right, transparent 50px, #ff6b6b 50px, #ff6b6b 51px, transparent 51px),
+    linear-gradient(to bottom, transparent 27px, #d6e4ff 27px, #d6e4ff 28px);
+  background-size: 100% 100%, 100% 28px;
+  background-attachment: local;
+  padding-left: 65px;
+  padding-right: 25px;
+  padding-top: 14px;
+  padding-bottom: 28px;
+  line-height: 28px;
+  font-family: 'Space Mono', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', Courier, monospace;
+  font-size: 14px;
+  color: #3e2723;
+}
+.ruled-notepad .ProseMirror {
+  outline: none;
+  min-height: 400px;
+  line-height: 28px !important;
+}
+.ruled-notepad .ProseMirror p {
+  margin: 0 !important;
+  line-height: 28px !important;
+  min-height: 28px;
+}
+
+/* ════ CUSTOM POST BACKGROUNDS ════ */
+.post-bg-matcha {
+  background-color: #f4f8f0 !important;
+  color: #2d4a22 !important;
+  border-color: #4a7c59 !important;
+}
+.post-bg-matcha .window-header {
+  background-color: #c0cfb1 !important;
+  color: #2d4a22 !important;
+  border-color: #4a7c59 !important;
+}
+.post-bg-matcha textarea, .post-bg-matcha input {
+  background-color: #ffffff !important;
+  color: #2d4a22 !important;
+  border-color: #4a7c59 !important;
+}
+
+.post-bg-midnight {
+  background-color: #0b0f19 !important;
+  color: #f8fafc !important;
+  border-color: #94a3b8 !important;
+}
+.post-bg-midnight .window-header {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #94a3b8 !important;
+}
+.post-bg-midnight textarea, .post-bg-midnight input {
+  background-color: #0b0f19 !important;
+  color: #f8fafc !important;
+  border-color: #94a3b8 !important;
+}
+
+.post-bg-vaporwave {
+  background: linear-gradient(135deg, #2a0845, #6441a5) !important;
+  color: #ff71ce !important;
+  border-color: #01cdfe !important;
+}
+.post-bg-vaporwave .window-header {
+  background: #ff71ce !important;
+  color: #2a0845 !important;
+  border-color: #01cdfe !important;
+}
+.post-bg-vaporwave textarea, .post-bg-vaporwave input {
+  background-color: #140d25 !important;
+  color: #ff71ce !important;
+  border-color: #01cdfe !important;
+}
+
+.post-bg-matrix {
+  background-color: #050505 !important;
+  color: #00ff00 !important;
+  border-color: #00ff00 !important;
+  font-family: var(--font-mono) !important;
+}
+.post-bg-matrix .window-header {
+  background-color: #00ff00 !important;
+  color: #050505 !important;
+  border-color: #00ff00 !important;
+}
+.post-bg-matrix textarea, .post-bg-matrix input {
+  background-color: #000000 !important;
+  color: #00ff00 !important;
+  border-color: #00ff00 !important;
+}
+
+.post-bg-sunset {
+  background: linear-gradient(135deg, #f43f5e, #f97316) !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+.post-bg-sunset .window-header {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+.post-bg-sunset textarea, .post-bg-sunset input {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+.post-bg-cyberpunk {
+  background-color: #000000 !important;
+  color: #fef102 !important;
+  border-color: #00f0ff !important;
+  font-family: var(--font-mono) !important;
+}
+.post-bg-cyberpunk .window-header {
+  background-color: #00f0ff !important;
+  color: #000000 !important;
+  border-color: #ff0055 !important;
+}
+.post-bg-cyberpunk textarea, .post-bg-cyberpunk input {
+  background-color: #050505 !important;
+  color: #fef102 !important;
+  border-color: #ff0055 !important;
+}
+
+.bg-primary-banner {
+  background-color: var(--primary) !important;
+  opacity: 0.25;
+}
+
