@@ -39,6 +39,7 @@ export function ResetPasswordView({ sfx }) {
     }
   }, []);
 
+  /* Captcha temporarily disabled
   useEffect(() => {
     let retries = 0;
     const renderWidget = () => {
@@ -98,6 +99,7 @@ export function ResetPasswordView({ sfx }) {
       setCaptchaToken(null);
     };
   }, [validToken, requestSent]);
+  */
 
   useEffect(() => {
     const code = searchParams.get('code');
@@ -125,10 +127,6 @@ export function ResetPasswordView({ sfx }) {
 
   const handleRequestReset = async (e) => {
     e.preventDefault();
-    if (!captchaToken && !isTestMode()) {
-      setError('Please complete the human verification first.');
-      return;
-    }
     setLoading(true);
     setError('');
     try {

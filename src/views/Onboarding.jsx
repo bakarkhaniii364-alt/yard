@@ -106,6 +106,7 @@ export function AuthView({ mode }) {
     }
   }, []);
 
+  /* Captcha temporarily disabled
   useEffect(() => {
     let retries = 0;
     const renderWidget = () => {
@@ -167,6 +168,7 @@ export function AuthView({ mode }) {
       setCaptchaToken(null);
     };
   }, [mode]);
+  */
 
   const onBack = () => navigate('/');
 
@@ -192,18 +194,11 @@ export function AuthView({ mode }) {
   };
 
   const handleAuth = async () => {
-    if (!captchaToken && !isTestMode()) {
-      addToast("Please complete the human verification first.", "error");
-      return;
-    }
     setLoading(true);
     setAuthError(null);
     try {
       if (mode === 'signup') {
         const authOptions = { data: { name } };
-        if (captchaToken) {
-          authOptions.captchaToken = captchaToken;
-        }
         const { data, error } = await supabase.auth.signUp({ 
             email, password, options: authOptions 
         });
@@ -228,9 +223,6 @@ export function AuthView({ mode }) {
         navigate('/dashboard');
       } else {
         const authOptions = {};
-        if (captchaToken) {
-          authOptions.captchaToken = captchaToken;
-        }
         const { data, error } = await supabase.auth.signInWithPassword({ 
             email, password, options: authOptions 
         });
