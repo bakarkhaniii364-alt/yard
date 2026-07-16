@@ -40,6 +40,7 @@ export function ResetPasswordView({ sfx }) {
   }, []);
 
   useEffect(() => {
+    let retries = 0;
     const renderWidget = () => {
       if (window.turnstile && turnstileContainerRef.current) {
         if (widgetIdRef.current !== null) {
@@ -53,7 +54,15 @@ export function ResetPasswordView({ sfx }) {
         }
 
         try {
-          const sitekey = import.meta.env.VITE_TURNSTILE_SITEKEY || '0x4AAAAAADdzhyrg4kvhvTW3';
+          const isLocal = typeof window !== 'undefined' && 
+            (window.location.hostname === 'localhost' || 
+             window.location.hostname === '127.0.0.1' || 
+             window.location.hostname.startsWith('192.168.'));
+
+          const sitekey = isLocal 
+            ? '1x00000000000000000000AA' 
+            : (import.meta.env.VITE_TURNSTILE_SITEKEY || '0x4AAAAAADdzhyrg4kvhvTW3');
+          
           const el = document.createElement('div');
           turnstileContainerRef.current.appendChild(el);
 
@@ -66,8 +75,11 @@ export function ResetPasswordView({ sfx }) {
         } catch (e) {
           console.error("Turnstile render error", e);
         }
-      } else if (!validToken && !requestSent) {
+      } else if (!validToken && !requestSent && retries < 50) {
+        retries++;
         timeoutRef.current = setTimeout(renderWidget, 100);
+      } else {
+        console.warn("Turnstile failed to load or stopped rendering");
       }
     };
 

@@ -107,6 +107,7 @@ export function AuthView({ mode }) {
   }, []);
 
   useEffect(() => {
+    let retries = 0;
     const renderWidget = () => {
       if (window.turnstile && turnstileContainerRef.current) {
         // Clear any existing widget first to prevent duplicates
@@ -121,7 +122,14 @@ export function AuthView({ mode }) {
         }
 
         try {
-          const sitekey = import.meta.env.VITE_TURNSTILE_SITEKEY || '0x4AAAAAADdzhyrg4kvhvTW3';
+          const isLocal = typeof window !== 'undefined' && 
+            (window.location.hostname === 'localhost' || 
+             window.location.hostname === '127.0.0.1' || 
+             window.location.hostname.startsWith('192.168.'));
+
+          const sitekey = isLocal 
+            ? '1x00000000000000000000AA' 
+            : (import.meta.env.VITE_TURNSTILE_SITEKEY || '0x4AAAAAADdzhyrg4kvhvTW3');
           
           // Render into a new child div to avoid React/DOM collision
           const el = document.createElement('div');
@@ -136,8 +144,11 @@ export function AuthView({ mode }) {
         } catch (e) {
           console.error("Turnstile render error", e);
         }
-      } else {
+      } else if (retries < 50) {
+        retries++;
         timeoutRef.current = setTimeout(renderWidget, 100);
+      } else {
+        console.warn("Turnstile failed to load after 5 seconds");
       }
     };
 
